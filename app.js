@@ -20,15 +20,16 @@ function createButtons(careers) {
         try {
             const response = await fetch(url);
             const jobs = await response.json();
+            createButtons(jobs);
             return jobs;
         }
         catch (error) {
             console.error("Error fetching careers data:", error);
             return [];
         }
+        
     }
     getCareers();
-    createButtons();
 
     // this codes needs to be configured for Rey's prject, but it is a good starting point for the step navigation functionality
     const steps = document.querySelectorAll("#steps a"); // Select all step circles
