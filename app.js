@@ -1,6 +1,9 @@
 function init() {
 const overlay = document.getElementById("overlay");
-const careerTitle = document.getElementById("occupation")
+const careerTitle = document.getElementById("occupation");
+const calculator = document.getElementById("main-content");
+const inputs = document.querySelectorAll(".expense");
+const canvas = document.getElementById("myChart");
 
 function createButtons(careers) {
     careers.forEach((career, index) => {
@@ -29,7 +32,25 @@ function createButtons(careers) {
         }
         
     }
+
+
+     let currentChart = new Chart(canvas, 
+         {
+            type: "doughnut",
+            data: {
+              labels: ["Housing (%)", "Loans (%)", "Essentials", "Lifestyle", "Future Planning"],
+              datasets: [{ label: "$", data: [0, 1] }]
+            },
+            options: {
+              plugins: {
+                title: { display: true, text: `Expenses by Catagory` }
+              }
+            }
+          }
+    )
     getCareers();
+    save();
+   
 
     // this codes needs to be configured for Rey's prject, but it is a good starting point for the step navigation functionality
     const steps = document.querySelectorAll("#steps a"); // Select all step circles
@@ -62,7 +83,6 @@ function createButtons(careers) {
         });
     });
     function calcSaveChart() {
-        const inputs = document.getElementsByClassName("expense");
         const savedExpenses = {};
         let housing = 0;
         let life = 0;
@@ -89,10 +109,43 @@ function createButtons(careers) {
             else if(input.classList.contains("future")) {
                 future += Number(input.value.replace(/[^0-9]/g, '')) || 0;
             }
-            localStorage.setItem("savedExpenses", JSON.stringify(savedExpenses));
         });
+        localStorage.setItem("savedExpenses", JSON.stringify(savedExpenses));
+        if (currentChart) currentChart.destroy();
+        currentChart = new Chart(canvas, 
+            {
+               type: "doughnut",
+               data: {
+                 labels: ["Housing (%)", "Loans (%)", "Essentials", "Lifestyle", "Future Planning"],
+                 datasets: [{ label: "$", data: [housing, loans, essentials, life, future] }]
+               },
+               options: {
+                 plugins: {
+                   title: { display: true, text: `Expenses by Catagory` }
+                 }
+               }
+             }
+       )
     }
+    function save() {
+        const pullExpenses = JSON.parse(localStorage.getItem("savedExpenses"));
+        inputs.forEach(input => {
+        if(pullExpenses){
+            if(pullExpenses[input.id]){
+                input.value = pullExpenses[input.id]
+            }
+        }
+        calcSaveChart();
+        })   
+    }
+    calculator.addEventListener("input", ()=>{
+        calcSaveChart();
+        console.log("Hello World");
+        
+    })
+    
 }
+
 
 
 

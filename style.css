@@ -163,9 +163,11 @@ ul {
 #footerBottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-#footerBottom ul:first-of-type a {
+#footerBottom ul:first-of-type a, 
+#footerBottom small{
   text-decoration: none;
   color: #666;
   font-size: 12px;
@@ -175,6 +177,8 @@ ul {
   display: flex;
   justify-content: space-between;
   background-color: var(--main-blue);
+  height: 25vh;
+  align-items: center;
 }
 
 #footerLink a {
@@ -182,3 +186,19 @@ ul {
   text-decoration: none;
 }
 
+#footerLink img {
+  height: 60%;
+}
+
+#footerLink ul li {
+  margin-bottom: 1rem;
+}
+
+#overlay button{
+  background-color: var(--main-blue);
+  margin: 1vh 2vw;
+  width: 60%;
+  color: white;
+  height: 4vh;
+  border-radius: 5px;
+}
