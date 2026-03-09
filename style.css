@@ -202,3 +202,17 @@ ul {
   height: 4vh;
   border-radius: 5px;
 }
+
+/* Overlay Styling */
+.notActive{ 
+display: none;
+
+}
+
+#overlay.active {
+  display: absolute;
+}
+
+.overlayOpen {
+  background-color: pink;
+}
