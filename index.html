@@ -45,99 +45,129 @@
 
       </div>
     </header>
-       <main>
-      <h1>Wise-Up: Budget Calculator</h1>
-      <p>
-        Create your own specialized monthly budget with an entry-level career
-        in mind! Would you survive in the adult world? See how financially
-        literate you are!
-      </p>
+    <main>
+      <section>
+        <h1>Wise-Up: Budget Calculator</h1>
+        <p>
+          Create your own specialized monthly budget with an entry-level career
+          in mind! Would you survive in the adult world? See how financially
+          literate you are!
+        </p>
+      </section>
         <div id="main-content">
-            <div class="chart-container">
-              <canvas id="myChart"></canvas>
-            </div>
-            <div class="calculator-container">
-                    <div id="steps">
-                        <a href="" class="circle active">1</a>
-                        <a href="" class="circle">2</a>
-                        <a href="" class="circle">3</a>
-                        <a href="" class="circle">4</a>
-                        <a href="" class="circle">5</a>
-                        <a href="" class="circle">6</a>
-                    </div>
-                    <section id="section-1" class="step-content active">
-                      <h2>Income</h2>
-                      <button id="select-career"><img src="#" alt="menu button">Select career</button>
-                      <h3 id="occupation">Future Career:</h3>
-                      <h3>Gross Annual Salary*</h3>
-                      <p id="salary"></p>
-                      <h3>Gross Monthly Salary</h3>
-                      <p id="gross-monthly-salary"></p>
-                      <h3>Net Monthly Salary</h3>
-                      <p id="net-monthly-salary"></p>
-                      <button class="next">Next <img src="#" alt="next arrow"></button>
-                    </section>
+          <div class="chart-container">
+            <canvas id="myChart"></canvas>
+          </div>
+          <div class="calculator-container">
+                  <div id="steps">
+                      <a href="" class="circle active">1</a>
+                      <a href="" class="circle">2</a>
+                      <a href="" class="circle">3</a>
+                      <a href="" class="circle">4</a>
+                      <a href="" class="circle">5</a>
+                      <a href="" class="circle">6</a>
+                  </div>
+                  <section id="section-1" class="step-content active">
+                    <h2>Income</h2>
+                    <button id="select-career"><img src="images/menu.png" alt="menu button">Select career</button>
+                    <h3 id="occupation">Future Career:</h3>
+                    <h3>Gross Annual Salary*</h3>
+                    <p id="salary"></p>
+                    <h3>Gross Monthly Salary</h3>
+                    <p id="gross-monthly-salary"></p>
+                    <h3>Net Monthly Salary</h3>
+                    <p id="net-monthly-salary"></p>
+                    <button class="next">Next <img src="images/arrowForward.png" alt="next arrow"></button>
+                  </section>
 
-                    <section class="step-content forms">
-                      <h2>Housing and Bills</h2>
-                      <br>
+                  <section class="step-content forms">
+                    <h2>Housing and Bills</h2>
+                    
+                    <div>
                       <label for="rent">Rent/Mortgage</label>
                       <input type="text" id="rent" name="rent" class="housing expense">
                       
                       <label for="home-insurance">Home Insurance</label>
                       <input type="text" id="home-insurance" name="home-insurance" class="housing expense">
+
                       <label for="maintenance">Maintenance</label>
                       <input type="text" id="maintenance" name="maintenance" class="housing expense">
-                      <label for="property-tax">Porperty Tax</label>
+
+                      <label for="property-tax">Property Tax</label>
                       <input type="text" id="property-tax" name="property-tax" class="housing expense">
+
                       <label for="electricity-gas">Electricity & Gas</label>
                       <input type="text" id="electricity-gas" name="electricity-gas" class="housing expense">
+
                       <label for="water">Water & Sewage</label>
                       <input type="text" id="water" name="water" class="housing expense">
+
                       <label for="phone">Phone & Cell</label>
                       <input type="text" id="phone" name="phone" class="housing expense">
+
                       <label for="internet">Cable & Internet</label>
                       <input type="text" id="internet" name="internet" class="housing expense">
-                      <button class="back"><img src="#"> Back</button>
-                      <button class="next">Next <img src="#"></button>
-                    </section>
+                    </div>
 
-                    <section class="step-content forms">
-                      <h2>loans and Transportation</h2>
+                    <button class="back"><img src="images/arrow.png"> Back</button>
+                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                  </section>
+
+                  <section class="step-content forms">
+                    <h2>loans and Transportation</h2>
+
+                    <div>
                       <label for="student-loans">Student loans</label>
                       <input type="text" id="student-loans" name="student-loans expense" class="loans expense">
+
                       <label for="bank-loans">Bank loans</label>
                       <input type="text" id="bank-loans" name="bank-loans expense" class="loans expense">
+                      
                       <label for="car">Car Payment</label>
                       <input type="text" id="car" name="car" class="loans expense">
+
                       <label for="gas">Gasoline</label>
                       <input type="text" id="gas" name="gas" class="loans expense">
+
                       <label for="credit">Credut Cards</label>
                       <input type="text" id="credit" name="credit" class="loans expense">
+
                       <label for="debt">Misc. Debt</label>
                       <input type="text" id="bank-loans" name="bank-loans" class="loans expense">
+                      
                       <label for="car-insurance">Misc. Debt</label>
                       <input type="text" id="car-insurance" name="car-insurance" class="loans expense">
-                      <button class="back"><img src="#"> Back</button>
-                      <button class="next">Next <img src="#"></button>
-                    </section>
+                    </div>
 
-                    <section class="step-content forms">
-                      <h2>Essentials</h2>
+                    <button class="back"><img src="images/arrow.png"> Back</button>
+                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                  </section>
+
+                  <section class="step-content forms">
+                    <h2>Essentials</h2>
+
+                    <div>
                       <label for="groceries">Groceries</label>
                       <input type="text" id="groceries" name="groceries" class="essentials expense">
+
                       <label for="health-insurance">Health Insurance</label>
                       <input type="text" id="health-insurance" name="health-insurance" class="essentials expense">
+
                       <label for="medication">Medication</label>
                       <input type="text" id="medication" name="medication" class="essentials expense">
+
                       <label for="clothing">Clothing</label>
                       <input type="text" id="clothing" name="clothing" class="essentials expense">
-                      <button class="back"><img src="#"> Back</button>
-                      <button class="next">Next <img src="#"></button>
-                    </section>
+                    </div>
 
-                    <section class="step-content forms">
-                      <h2>Lifestyle</h2>
+                    <button class="back"><img src="images/arrow.png"> Back</button>
+                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                  </section>
+
+                  <section class="step-content forms">
+                    <h2>Lifestyle</h2>
+
+                    <div>
                       <label for="gym">Gym</label>
                       <input type="text" id="gym" name="gym" class="lifestyle expense">
                       <label for="dining">Dining Out</label>
@@ -150,12 +180,16 @@
                       <input type="text" id="recreation" name="recreation" class="lifestyle expense">
                       <label for="gifts">Gifts</label>
                       <input type="text" id="gifts" name="gifts" class="lifestyle expense">
-                      <button class="back"><img src="#"> Back</button>
-                      <button class="next">Next <img src="#"></button>
-                    </section>
+                    </div>
 
-                    <section class="step-content forms">
-                      <h2>Future Planning</h2>
+                    <button class="back"><img src="images/arrow.png"> Back</button>
+                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                  </section>
+
+                  <section class="step-content forms">
+                    <h2>Future Planning</h2>
+
+                    <div>
                       <label for="retirement">Retirement</label>
                       <input type="text" id="retirement" name="retirement" class="future expense">
                       <label for="savings">Savings</label>
@@ -164,22 +198,25 @@
                       <input type="text" id="investments" name="investments" class="future expense">
                       <label for="vacation">Vacation</label>
                       <input type="text" id="vacation" name="vacation" class="future expense">
-                      <button class="back"><img src="#"> Back</button>
-                      <button class="next">Next <img src="#"></button>
-                    </section>
+                  </div>
 
-                    <section class="step-content">
-                      <h2>Congratulations!</h2>
-                      <p></p>
-                      <button class="back"><img src="#"> Back</button>
-                    </section>
-                </div>
+                    <button class="back"><img src="images/arrow.png"> Back</button>
+                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                  </section>
+
+                  <section class="step-content">
+                    <h2>Congratulations!</h2>
+                    <p></p>
+                    <button class="back"><img src="images/arrow.png"> Back</button>
+                  </section>
+              </div>
         </div>
 
         <section id="overlay" class="notActive">
           <div id="overlay-content">
             <button id="closeOverlay"><img src="#">X</button>
             <h3>Choose Career</h3>
+            <input type="text" id="searchFilter" placeholder="Search Career...">
           </div>
         </section>
     </main>

@@ -11,6 +11,7 @@ function init() {
     const content = document.querySelectorAll(".step-content"); // Select all content sections
     const careerOverlay = document.getElementById('select-career');
     const closeOverlay = document.getElementById('closeOverlay');
+    const searchFilter = document.getElementById("searchFilter");
 
     function updateStep(stepNumber) {
         steps.forEach((circle, circleNumber) => {
@@ -53,9 +54,16 @@ function init() {
 
             button.innerHTML = `${career.Occupation}: ${career.Salary}`;
             button.setAttribute("id", `${index}`);
+            button.setAttribute("data-career", `${career.Occupation.replaceAll(' ', '')}`);
+            button.classList.add("careerButton")
             button.addEventListener("click", () => {
                 careerTitle.innerHTML = `Future Career: ${career.Occupation}`;
                 console.log(`Selected Career: ${career.Occupation}, Salary: ${career.Salary}`);
+
+                const overlay = document.getElementById('overlay');
+                overlay.classList.remove('active');
+                overlay.classList.add('notActive');
+                document.body.classList.remove('overlayOpen');
             });
             actualOverlay.appendChild(button);
         });
@@ -195,6 +203,19 @@ function init() {
 
     })
 
+    searchFilter.addEventListener("input", ()=>{
+        const careerOptions = document.querySelectorAll('[data-career]');
+        let filter = searchFilter.value.toLowerCase();
+
+        careerOptions.forEach((careerBtn) =>{
+            const careerContent = careerBtn.dataset.career.toLowerCase();
+            if (filter != "" && !careerContent.includes(`${filter}`)){
+                careerBtn.classList.add("hidden");
+            } else {
+                careerBtn.classList.remove("hidden");
+            }
+        })
+    })
 }
 
 
