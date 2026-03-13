@@ -1,10 +1,10 @@
 function init() {
+    //whole lotta consts
     const overlay = document.getElementById("overlay");
     const careerTitle = document.getElementById("occupation");
     const calculator = document.getElementById("main-content");
     const inputs = document.querySelectorAll(".expense");
     const canvas = document.getElementById("myChart");
-    let currentStep = 0;
     const nextButton = document.querySelectorAll('.next');
     const backButton = document.querySelectorAll('.back');
     const steps = document.querySelectorAll("#steps a"); // Select all step circles
@@ -13,6 +13,10 @@ function init() {
     const closeOverlay = document.getElementById('closeOverlay');
     const searchFilter = document.getElementById("searchFilter");
 
+
+    //navigation for sections
+    let currentStep = 0;
+
     function updateStep(stepNumber) {
         steps.forEach((circle, circleNumber) => {
             if (circleNumber <= stepNumber) {
@@ -20,6 +24,13 @@ function init() {
             }
             else {
                 circle.classList.remove("active");
+            }
+
+            if (stepNumber == 6){
+                circle.classList.remove("active");
+                circle.classList.add("complete");
+            } else {
+                circle.classList.remove("complete")
             }
         })
 
@@ -33,6 +44,16 @@ function init() {
         });
     }
 
+    steps.forEach((step, index) => {
+        step.addEventListener("click", (i) => {
+            i.preventDefault(); // Prevent default anchor behavior
+            currentStep = index;
+            updateStep(currentStep);
+        });
+    });
+
+
+    //listeners for next and back buttons
     nextButton.forEach(button => {
         button.addEventListener('click', () => {
             currentStep++;
@@ -47,45 +68,49 @@ function init() {
         });
     });
 
+
+    //creating buttons for career select overlay
     function createButtons(careers) {
         careers.forEach((career, index) => {
             const button = document.createElement("button");
-            const actualOverlay = document.getElementById("overlay-content");
+            const actualOverlay = document.getElementById("overlay-content"); //accessing
 
-            button.innerHTML = `${career.Occupation}: ${career.Salary}`;
-            button.setAttribute("id", `${index}`);
+            button.innerHTML = `${career.Occupation}: ${career.Salary}`; //adding HTML of button
+
+            button.setAttribute("id", `${index}`); //adding id, data, and class attributes
             button.setAttribute("data-career", `${career.Occupation.replaceAll(' ', '')}`);
             button.classList.add("careerButton")
-            button.addEventListener("click", () => {
+
+            button.addEventListener("click", () => { //adding event listener to change HTML
                 careerTitle.innerHTML = `Future Career: ${career.Occupation}`;
                 console.log(`Selected Career: ${career.Occupation}, Salary: ${career.Salary}`);
 
-                const overlay = document.getElementById('overlay');
+                //removing classes from HTML elements to close overlay
                 overlay.classList.remove('active');
                 overlay.classList.add('notActive');
                 document.body.classList.remove('overlayOpen');
             });
-            actualOverlay.appendChild(button);
+
+            actualOverlay.appendChild(button);//add button to overlay
         });
     }
 
     async function getCareers() {
         const url = "https://eecu-data-server.vercel.app/data";
         try {
-            const response = await fetch(url);
-            const jobs = await response.json();
-            createButtons(jobs);
-            return jobs;
+            const response = await fetch(url); //grab array string
+            const jobs = await response.json(); //convert into actual array
+            createButtons(jobs); //use array to make overlay buttons
+            return jobs; //return actual array
         }
         catch (error) {
             console.error("Error fetching careers data:", error);
             return [];
         }
-
     }
 
 
-    let currentChart = new Chart(canvas,
+    let currentChart = new Chart(canvas, //creating chart
         {
             type: "doughnut",
             data: {
@@ -99,27 +124,30 @@ function init() {
             }
         }
     )
-    getCareers();
-    save();
+
+
+    getCareers(); //fetch career array
+    save(); //update screen
 
 
 
 /* Overlay Settings RIGHT HERE */
 
     careerOverlay.addEventListener ('click', ()=> {
-        const overlay = document.getElementById('overlay'); 
         overlay.classList.remove('notActive');
         overlay.classList.add('active');
         document.body.classList.add('overlayOpen');
     }) 
 
     closeOverlay.addEventListener ('click', ()=> {
-        const overlay = document.getElementById('overlay');
         overlay.classList.remove('active');
         overlay.classList.add('notActive');
         document.body.classList.remove('overlayOpen');
     }) 
 
+
+
+    //tax function
     function tax(grossIncome) {
         let netIncome = 0;
         if (grossIncome < 16100) { netIncome = grossIncome }
@@ -133,14 +161,8 @@ function init() {
 
     }
 
-    // this codes needs to be configured for Rey's prject, but it is a good starting point for the step navigation functionality
-    steps.forEach((step, index) => {
-        step.addEventListener("click", (i) => {
-            i.preventDefault(); // Prevent default anchor behavior
-            currentStep = index;
-            updateStep(currentStep);
-        });
-    });
+
+    //calculating totals, saving to local storage, updating chart
     function calcSaveChart() {
         const savedExpenses = {};
         let housing = 0;
@@ -151,12 +173,13 @@ function init() {
 
         let total = 0;
         inputs.forEach(input => {
-            total += Number(input.value.replace(/[^0-9]/g, '')) || 0;
-            savedExpenses[input.id] = Number(input.value.replace(/[^0-9]/g, '')) || 0;
-            if (input.classList.contains("housing")) {
+            total += Number(input.value.replace(/[^0-9]/g, '')) || 0; //adding total
+
+            savedExpenses[input.id] = Number(input.value.replace(/[^0-9]/g, '')) || 0; //adding expense to array to save
+            if (input.classList.contains("housing")) { //checks which category input belongs to & adds only the integers
                 housing += Number(input.value.replace(/[^0-9]/g, '')) || 0;
             }
-            else if (input.classList.contains("life")) {
+            else if (input.classList.contains("lifestyle")) {
                 life += Number(input.value.replace(/[^0-9]/g, '')) || 0;
             }
             else if (input.classList.contains("essentials")) {
@@ -169,9 +192,11 @@ function init() {
                 future += Number(input.value.replace(/[^0-9]/g, '')) || 0;
             }
         });
-        localStorage.setItem("savedExpenses", JSON.stringify(savedExpenses));
+
+        localStorage.setItem("savedExpenses", JSON.stringify(savedExpenses)); //saving
+
         if (currentChart) currentChart.destroy();
-        currentChart = new Chart(canvas,
+        currentChart = new Chart(canvas, //new chart
             {
                 type: "doughnut",
                 data: {
@@ -186,36 +211,41 @@ function init() {
             }
         )
     }
+
     function save() {
-        const pullExpenses = JSON.parse(localStorage.getItem("savedExpenses"));
-        inputs.forEach(input => {
+        const pullExpenses = JSON.parse(localStorage.getItem("savedExpenses")); //grabbing array
+        inputs.forEach(input => { //updating input fields with previous numbers
             if (pullExpenses) {
                 if (pullExpenses[input.id]) {
                     input.value = pullExpenses[input.id]
                 }
             }
-            calcSaveChart();
         })
+        calcSaveChart(); //update page
     }
-    calculator.addEventListener("input", () => {
-        calcSaveChart();
-        console.log("Hello World");
 
+    calculator.addEventListener("input", () => { //any input for text box updates totals, storage, and chart
+        calcSaveChart();
     })
 
+
+    //search filter for overlay buttons
     searchFilter.addEventListener("input", ()=>{
-        const careerOptions = document.querySelectorAll('[data-career]');
-        let filter = searchFilter.value.toLowerCase();
+        const careerOptions = document.querySelectorAll('[data-career]'); //accessing data-career attribute
+        let filter = searchFilter.value.toLowerCase(); //grab input & to lowercase
 
         careerOptions.forEach((careerBtn) =>{
-            const careerContent = careerBtn.dataset.career.toLowerCase();
-            if (filter != "" && !careerContent.includes(`${filter}`)){
+            const careerContent = careerBtn.dataset.career.toLowerCase(); //grabbing attribute content
+
+            if (filter != "" && !careerContent.includes(`${filter}`)){ //if input not empty and attribute doesn't have input, hide
                 careerBtn.classList.add("hidden");
             } else {
-                careerBtn.classList.remove("hidden");
+                careerBtn.classList.remove("hidden"); //else, shown
             }
         })
     })
+
+    
 }
 
 

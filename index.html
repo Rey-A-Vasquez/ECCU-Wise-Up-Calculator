@@ -71,9 +71,9 @@
                     <h2>Income</h2>
                     <button id="select-career"><img src="images/menu.png" alt="menu button">Select career</button>
                     <h3 id="occupation">Future Career:</h3>
-                    <h3>Gross Annual Salary*</h3>
+                    <h3>Gross Annual Salary</h3>
                     <p id="salary"></p>
-                    <h3>Gross Monthly Salary</h3>
+                    <h3>Net Annual Salary Salary</h3>
                     <p id="gross-monthly-salary"></p>
                     <h3>Net Monthly Salary</h3>
                     <p id="net-monthly-salary"></p>
@@ -84,29 +84,32 @@
                     <h2>Housing and Bills</h2>
                     
                     <div>
-                      <label for="rent">Rent/Mortgage</label>
-                      <input type="text" id="rent" name="rent" class="housing expense">
-                      
-                      <label for="home-insurance">Home Insurance</label>
-                      <input type="text" id="home-insurance" name="home-insurance" class="housing expense">
+                      <div>
+                        <label for="rent">Rent/Mortgage</label>
+                        <input type="text" id="rent" name="rent" class="housing expense">
+                        
+                        <label for="home-insurance">Home Insurance</label>
+                        <input type="text" id="home-insurance" name="home-insurance" class="housing expense">
 
-                      <label for="maintenance">Maintenance</label>
-                      <input type="text" id="maintenance" name="maintenance" class="housing expense">
+                        <label for="maintenance">Maintenance</label>
+                        <input type="text" id="maintenance" name="maintenance" class="housing expense">
 
-                      <label for="property-tax">Property Tax</label>
-                      <input type="text" id="property-tax" name="property-tax" class="housing expense">
+                        <label for="property-tax">Property Tax</label>
+                        <input type="text" id="property-tax" name="property-tax" class="housing expense">
+                      </div>
+                      <div>
+                        <label for="electricity-gas">Electricity & Gas</label>
+                        <input type="text" id="electricity-gas" name="electricity-gas" class="housing expense">
 
-                      <label for="electricity-gas">Electricity & Gas</label>
-                      <input type="text" id="electricity-gas" name="electricity-gas" class="housing expense">
+                        <label for="water">Water & Sewage</label>
+                        <input type="text" id="water" name="water" class="housing expense">
 
-                      <label for="water">Water & Sewage</label>
-                      <input type="text" id="water" name="water" class="housing expense">
+                        <label for="phone">Phone & Cell</label>
+                        <input type="text" id="phone" name="phone" class="housing expense">
 
-                      <label for="phone">Phone & Cell</label>
-                      <input type="text" id="phone" name="phone" class="housing expense">
-
-                      <label for="internet">Cable & Internet</label>
-                      <input type="text" id="internet" name="internet" class="housing expense">
+                        <label for="internet">Cable & Internet</label>
+                        <input type="text" id="internet" name="internet" class="housing expense">
+                      </div>
                     </div>
 
                     <button class="back"><img src="images/arrow.png"> Back</button>
@@ -117,26 +120,29 @@
                     <h2>loans and Transportation</h2>
 
                     <div>
-                      <label for="student-loans">Student loans</label>
-                      <input type="text" id="student-loans" name="student-loans expense" class="loans expense">
+                      <div>
+                        <label for="student-loans">Student loans</label>
+                        <input type="text" id="student-loans" name="student-loans expense" class="loans expense">
 
-                      <label for="bank-loans">Bank loans</label>
-                      <input type="text" id="bank-loans" name="bank-loans expense" class="loans expense">
-                      
-                      <label for="car">Car Payment</label>
-                      <input type="text" id="car" name="car" class="loans expense">
+                        <label for="bank-loans">Bank loans</label>
+                        <input type="text" id="bank-loans" name="bank-loans expense" class="loans expense">
+                        
+                        <label for="car">Car Payment</label>
+                        <input type="text" id="car" name="car" class="loans expense">
 
-                      <label for="gas">Gasoline</label>
-                      <input type="text" id="gas" name="gas" class="loans expense">
+                        <label for="gas">Gasoline</label>
+                        <input type="text" id="gas" name="gas" class="loans expense">
+                      </div>
+                      <div>
+                        <label for="credit">Credit Cards</label>
+                        <input type="text" id="credit" name="credit" class="loans expense">
 
-                      <label for="credit">Credut Cards</label>
-                      <input type="text" id="credit" name="credit" class="loans expense">
-
-                      <label for="debt">Misc. Debt</label>
-                      <input type="text" id="bank-loans" name="bank-loans" class="loans expense">
-                      
-                      <label for="car-insurance">Misc. Debt</label>
-                      <input type="text" id="car-insurance" name="car-insurance" class="loans expense">
+                        <label for="debt">Misc. Debt</label>
+                        <input type="text" id="bank-loans" name="bank-loans" class="loans expense">
+                        
+                        <label for="car-insurance">Car Insurance</label>
+                        <input type="text" id="car-insurance" name="car-insurance" class="loans expense">
+                      </div>
                     </div>
 
                     <button class="back"><img src="images/arrow.png"> Back</button>
@@ -147,17 +153,20 @@
                     <h2>Essentials</h2>
 
                     <div>
+                      <div>
                       <label for="groceries">Groceries</label>
                       <input type="text" id="groceries" name="groceries" class="essentials expense">
 
                       <label for="health-insurance">Health Insurance</label>
                       <input type="text" id="health-insurance" name="health-insurance" class="essentials expense">
-
+                      </div>
+                      <div>
                       <label for="medication">Medication</label>
                       <input type="text" id="medication" name="medication" class="essentials expense">
 
                       <label for="clothing">Clothing</label>
                       <input type="text" id="clothing" name="clothing" class="essentials expense">
+                      </div>
                     </div>
 
                     <button class="back"><img src="images/arrow.png"> Back</button>
@@ -168,18 +177,27 @@
                     <h2>Lifestyle</h2>
 
                     <div>
-                      <label for="gym">Gym</label>
-                      <input type="text" id="gym" name="gym" class="lifestyle expense">
-                      <label for="dining">Dining Out</label>
-                      <input type="text" id="dining" name="dining" class="lifestyle expense">
-                      <label for="charity">Charity</label>
-                      <input type="text" id="charity" name="charity" class="lifestyle expense">
-                      <label for="stream">Streaming</label>
-                      <input type="text" id="stream" name="stream" class="lifestyle expense">
-                      <label for="recreation">Recreation</label>
-                      <input type="text" id="recreation" name="recreation" class="lifestyle expense">
-                      <label for="gifts">Gifts</label>
-                      <input type="text" id="gifts" name="gifts" class="lifestyle expense">
+                      <div>
+                        <label for="gym">Gym</label>
+                        <input type="text" id="gym" name="gym" class="lifestyle expense">
+
+                        <label for="dining">Dining Out</label>
+                        <input type="text" id="dining" name="dining" class="lifestyle expense">
+
+                        <label for="charity">Charity</label>
+                        <input type="text" id="charity" name="charity" class="lifestyle expense">
+
+                      </div>
+                      <div>
+                        <label for="stream">Streaming</label>
+                        <input type="text" id="stream" name="stream" class="lifestyle expense">
+
+                        <label for="recreation">Recreation</label>
+                        <input type="text" id="recreation" name="recreation" class="lifestyle expense">
+
+                        <label for="gifts">Gifts</label>
+                        <input type="text" id="gifts" name="gifts" class="lifestyle expense">
+                      </div>
                     </div>
 
                     <button class="back"><img src="images/arrow.png"> Back</button>
@@ -190,14 +208,18 @@
                     <h2>Future Planning</h2>
 
                     <div>
-                      <label for="retirement">Retirement</label>
-                      <input type="text" id="retirement" name="retirement" class="future expense">
-                      <label for="savings">Savings</label>
-                      <input type="text" id="savings" name="savings" class="future expense">
-                      <label for="investments">Investments</label>
-                      <input type="text" id="investments" name="investments" class="future expense">
-                      <label for="vacation">Vacation</label>
-                      <input type="text" id="vacation" name="vacation" class="future expense">
+                      <div>
+                        <label for="retirement">Retirement</label>
+                        <input type="text" id="retirement" name="retirement" class="future expense">
+                        <label for="savings">Savings</label>
+                        <input type="text" id="savings" name="savings" class="future expense">
+                      </div>
+                      <div>
+                        <label for="investments">Investments</label>
+                        <input type="text" id="investments" name="investments" class="future expense">
+                        <label for="vacation">Vacation</label>
+                        <input type="text" id="vacation" name="vacation" class="future expense">
+                      </div>
                   </div>
 
                     <button class="back"><img src="images/arrow.png"> Back</button>
@@ -230,7 +252,7 @@
         </ul>
         <img src="../images/EECULogo.png" alt="logo" />
         <ul>
-          <li><a href="#">PROTECT YOUR HOME FROM FROECLOSURE</a></li>
+          <li><a href="#">PROTECT YOUR HOME FROM FORECLOSURE</a></li>
           <li><a href="#">WEBSITE ACCESSIBILITY</a></li>
           <li><a href="#">CAREERS</a></li>
         </ul>

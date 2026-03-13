@@ -81,7 +81,7 @@ header > .main-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 800px;
+    max-width: 1000px;
     width: 90%;
     margin: auto;
     position: relative;
@@ -110,8 +110,8 @@ header > .main-bar {
 }
 
 .circle {
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 55px;
   background: white;
   border: 3px solid #ddd;
   border-radius: 50%;
@@ -120,12 +120,30 @@ header > .main-bar {
   justify-content: center;
   font-weight: bold;
   color: #666;
+  transition: all 0.3s ease;
 }
 
-.circle.active {
+.circle.complete{
+  background-color: var(--complete-green);
+  color: white;
+  border: 3px solid var(--complete-green);
+  transition: all 0.3s ease;
+}
+
+.circle.complete:hover{
+  background-color: var(--darkgreen);
+}
+
+.circle.active,
+.circle:hover {
   color: white;
   background-color: var(--main-blue);
   border: 3px solid var(--main-blue);
+  transition: all 0.3s ease;
+}
+
+.circle.active:hover {
+  background-color: var(--darkblue);
 }
 
 .step-content {
@@ -149,23 +167,53 @@ main {
 }
 
 main > section:first-child {
-  width: 95%
+  width: 95%;
 }
+
 #main-content {
   display: grid;
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 25% 75%;
   width: 95%;
   background-color: var(--lightblue);
   border-radius: 10px;
   border: 3px solid var(--darkblue);
   grid-template-rows: 80vh;
+  max-width: 1500px;
+  margin-top: 20px;
 }
 
 .active.forms {
   display: flex;
   flex-wrap: wrap;
+  width: 90%;
+  margin-left: 5%;
 }
 
+.forms > div {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 45% 45%;
+  grid-template-rows: 45vh;
+  gap: 10%;
+}
+
+.forms > div > div {
+  display: grid;
+  grid-template-columns: 40% 55%;
+  grid-template-rows: 8vh 8vh 8vh 8vh;
+  gap: 2vh 5%;
+  align-items: center;
+}
+
+.forms label{
+  display: flex;
+  text-align: left;
+  height: max-content;
+}
+
+.expense {
+  width: 97%;
+}
 /*Buttons*/
 #select-career,
 .back,
@@ -210,6 +258,7 @@ main > section:first-child {
 .next:hover {
   background-color: #0b3d2e;
 }
+
 
 /*Footer*/
 footer {
