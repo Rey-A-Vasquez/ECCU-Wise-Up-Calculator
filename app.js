@@ -225,7 +225,7 @@ function init() {
         let housing = 0, life = 0, essentials = 0, loans = 0, future = 0, total = 0;
 
         const pullCareer = JSON.parse(localStorage.getItem("savedChoice")) || 0; //pulling career income
-        const careerIncome = pullCareer["income"];
+        const careerIncome = pullCareer["income"] || 0;
         
         inputs.forEach(input => {
             total += Number(input.value.replace(/[^0-9]/g, '')) || 0; //adding total
@@ -254,7 +254,7 @@ function init() {
         if (Math.round(tax(careerIncome) / 12 - total < 0)){
             document.getElementById("remainder-amount").style.color = 'red';
             document.getElementById("remainder-amount").innerHTML = `${Math.round(tax(careerIncome) / 12 - total).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
-        } else {
+        }else {
             document.getElementById("remainder-amount").style.color = 'var(--complete-green)';
             document.getElementById("remainder-amount").innerHTML = `+${Math.round(tax(careerIncome) / 12 - total).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
 
@@ -290,17 +290,17 @@ function init() {
         )
 
         //updating HTML percentages
-        document.querySelector("#house-percent").innerHTML = `${Math.round((10000 * housing / total)) / 100}%`;
-        document.querySelector("#loan-percent").innerHTML = `${Math.round((10000 * loans / total)) / 100}%`;
-        document.querySelector("#essential-percent").innerHTML = `${Math.round((10000 * essentials / total)) / 100}%`;
-        document.querySelector("#life-percent").innerHTML = `${Math.round((10000 * life / total)) / 100}%`;
-        document.querySelector("#future-percent").innerHTML = `${Math.round((10000 * future / total)) / 100}%`;
+        document.querySelector("#house-percent").innerHTML = `${total === 0 ? 0 : Math.round((10000 * housing / total)) / 100}%`;
+        document.querySelector("#loan-percent").innerHTML = `${total === 0 ? 0 : Math.round((10000 * loans / total)) / 100}%`;
+        document.querySelector("#essential-percent").innerHTML = `${total === 0 ? 0 : Math.round((10000 * essentials / total)) / 100}%`;
+        document.querySelector("#life-percent").innerHTML = `${total === 0 ? 0 : Math.round((10000 * life / total)) / 100}%`;
+        document.querySelector("#future-percent").innerHTML = `${total === 0 ? 0 : Math.round((10000 * future / total)) / 100}%`;
 
         //updating results screen based off remainder and savings
-        if (Math.round((10000 * future / total)) / 100 > 10 && total < careerIncome){
+        if (Math.round((10000 * future / total)) / 100 > 10 && total <= Math.round(tax(careerIncome) / 12)){
             document.getElementById("outcome-header").innerHTML = "Congratulations!";
             document.getElementById("outcome").innerHTML = `It seems like you're within budget! You won't go into debt! If you have any money left over, you should dedicate it to your savings. A rule to go by is to save at least 10% of your monthly income, and it seems like you're saving ${Math.round((10000 * future / total)) / 100}%! Phenomenal! You will be financially stable in the future! Stand proud, you're not broke.`;
-        } else if (Math.round((10000 * future / total)) / 100 < 10 && total < careerIncome){
+        } else if (Math.round((10000 * future / total)) / 100 <= 10 && total < Math.round(tax(careerIncome) / 12)){
             document.getElementById("outcome-header").innerHTML = "Hmmm...Almost There!";
             document.getElementById("outcome").innerHTML = `It seems like you're within budget! Essentially, you won't go into debt! If you have any money left over, you should dedicate it to your savings. A rule to go by is to save at least 10% of your monthly income. It seems like you're saving ${Math.round((10000 * future / total)) / 100}% of your income; you're almost there! Feel free to go back and edit your budget!`;
         } else {

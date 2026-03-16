@@ -6,9 +6,11 @@
   --darkgreen: #0b3d2e;
   --complete-green: #1b7721;
 }
+
 body {
   margin: 0;
   font-family: 'Open Sans';
+  overflow-x: hidden;
 }
 
 /* Header Styles */
@@ -184,6 +186,7 @@ main > section:first-child {
   grid-template-rows: max-content;
   max-width: 1500px;
   margin-top: 20px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 .calculator-container,
@@ -249,9 +252,10 @@ main > section:first-child {
 #section-1 > div{
   display: grid;
   height: 45vh;
-  flex-wrap: wrap;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: max-content max-content;
+  place-items: center;
+  gap: 0px 40px;
 }
 
 #outcome {
@@ -284,8 +288,6 @@ main > section:first-child {
   gap: 10%;
 }
 
-
-
 .forms > div > div {
   display: grid;
   grid-template-columns: 40% 55%;
@@ -299,6 +301,7 @@ main > section:first-child {
   text-align: left;
   height: max-content;
   font-size: 1rem;
+  font-weight: 600;
 }
 
 .expense {
@@ -319,6 +322,7 @@ main > section:first-child {
   cursor:pointer;
   font-weight: 700;
   transition: all 0.2s ease;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 #select-career,
@@ -326,10 +330,14 @@ main > section:first-child {
   font-size: larger;
   padding: 2vh 1.5vw 2vh 0;
   width: 20vw;
+  max-height: 80px;
+  max-width: 300px;
 }
+
 #tax-info{
-    padding: 2vh 0;
+  padding: 2vh 0;
 }
+
 .back,
 .next {
   width: 8vw;
@@ -337,6 +345,8 @@ main > section:first-child {
   margin-bottom: 5vh;
   font-size:medium;
   padding: 5px 5px;
+  min-width: 120px;
+  min-height: 50px;
 }
 
 #select-career > img {
@@ -382,7 +392,7 @@ footer {
 }
 
 #footerLink img {
-  height: 60%;
+  height: max-content;
 }
 
 #footerLink ul li {
@@ -523,29 +533,69 @@ display: none;
   #main-content {
   grid-template-columns: 100%;
   grid-template-rows: max-content max-content;
-  gap: 20vh;
+  gap: 5vh;
 }
 
 .chart-container {
   grid-row: 2 / 3;
+  gap: 5vh;
 }
 
 .calculator-container {
   grid-row: 1 / 2;
+}
 
+.chart-container{
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.back, 
+.next {
+  min-width: 150px;
+  min-height: 50px;
+  max-height: 75px;
+  max-width: 150px;
+  padding: 5px 20px;
+  margin: 2rem 0;
+}
+
+#chart{
+  height: 40vh;
+  padding: 0 calc(50% - 20vh);
 }
   
+#expense-totals{
+  margin-bottom: 5vh;
 }
 
+#expense-percentages, #expense-totals {
+  width: max-content;
+  height: auto;
+  gap: 1rem;
+  padding-bottom: 5vh;
+}
+}
+
+
+/*Less than 768px*/
 @media screen and (max-width: 768px) {
 .forms > .form-wrapper {
     grid-template-columns: 100%;
     grid-template-rows: max-content max-content;
-    gap: 0;
+    gap: 1.2rem 0;
+    height: 45vh;
 }
 
 .forms > div > div {
-  grid-template-rows: auto auto auto auto; 
+  grid-template-rows: max-content max-content max-content max-content; 
+  gap: 1.5rem 5%;
+}
+
+#essentials-form > div > div,
+#life-form > div > div,
+#future-form > div > div {
+  grid-template-rows: max-content max-content; 
   gap: 1.5rem 5%;
 }
 
@@ -559,4 +609,49 @@ display: none;
   margin: 2rem 0;
 }
 
+#chart{
+  height: 20vh;
+  padding: 0 calc(50% - 20vh);
+}
+
+header .top-bar,
+.main-bar nav a {
+  display: none;
+}
+
+#logIn{
+  display: block;
+}
+
+#footerLink,
+#footerBottom {
+  height: max-content;
+  flex-direction: column;
+  text-align: center;
+}
+
+#footerLink > ul,
+#footerBottom > ul:first-child,
+#footerBottom > small {
+  width: 90vw;
+  margin: 3vh 0;
+}
+#section-1 > div {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content max-content max-content;
+}
+
+#select-career, #tax-info{
+  min-width: 150px;
+  width: 30vw;
+}
+
+#outcome {
+  width: 95%;
+}
+
+.circle{
+  width: 50px;
+  height: 50px;
+}
 }
