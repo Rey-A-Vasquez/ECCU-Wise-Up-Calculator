@@ -153,11 +153,15 @@ header > .main-bar {
 }
 
 .step-content.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   font-size: 1.2rem;
 }
 
+.step-content.active > h2 {
+  text-align: left;
+}
 /* Main Content */
 
 main {
@@ -202,6 +206,7 @@ main > section:first-child {
   justify-content: space-between;
   width: 90%;
   font-size: 18px;
+  font-weight: 800;
 }
 
 #expense-percentages{
@@ -215,6 +220,14 @@ main > section:first-child {
 #expense-percentages > p,
 #expense-totals > p{
   margin: 0;
+}
+
+#income-amount{
+  color: var(--complete-green);
+}
+
+#expense-amount {
+  color: red;
 }
 
 /*Chart*/
@@ -234,22 +247,44 @@ main > section:first-child {
 
 /*Caluclator forms*/
 #section-1 > div{
+  display: grid;
   height: 45vh;
+  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: max-content max-content;
 }
-.active.forms {
+
+#outcome {
+  height: 45vh;
+  width: 90%;
+  text-align: left;
+  margin: 0;
+}
+
+.active.forms,
+.active.final,
+.active.initial {
   display: flex;
   flex-wrap: wrap;
   width: 90%;
   margin-left: 5%;
 }
 
-.forms > div {
+.button-wrapper{
+  display: flex;
+  justify-content: space-between;
+  height: max-content;
+}
+
+.forms > .form-wrapper {
   display: grid;
   width: 100%;
   grid-template-columns: 45% 45%;
   grid-template-rows: 45vh;
   gap: 10%;
 }
+
+
 
 .forms > div > div {
   display: grid;
@@ -272,6 +307,7 @@ main > section:first-child {
 
 /*Buttons*/
 #select-career,
+#tax-info,
 .back,
 .next {
   display: flex;
@@ -282,20 +318,25 @@ main > section:first-child {
   border-radius: 20px;
   cursor:pointer;
   font-weight: 700;
+  transition: all 0.2s ease;
 }
 
-#select-career {
+#select-career,
+#tax-info {
   font-size: larger;
   padding: 2vh 1.5vw 2vh 0;
   width: 20vw;
 }
-
+#tax-info{
+    padding: 2vh 0;
+}
 .back,
 .next {
-  width: 6vw;
-  height: 2.25vw;
+  width: 8vw;
+  height: 3vw;
   margin-bottom: 5vh;
   font-size:medium;
+  padding: 5px 5px;
 }
 
 #select-career > img {
@@ -310,6 +351,7 @@ main > section:first-child {
 }
 
 #select-career:hover,
+#tax-info:hover,
 .back:hover,
 .next:hover {
   background-color: #0b3d2e;
@@ -378,12 +420,14 @@ ul {
 }
 
 /* Overlay Styling */
-.notActive{ 
+.notActive,
+.notActiveTax{ 
 display: none;
-
 }
 
-#overlay.active {
+
+#overlay.active,
+#tax-overlay.activeTax {
   display: flex;
   position: fixed;
   justify-content: center;
@@ -396,10 +440,24 @@ display: none;
   z-index: 100;
 }
 
-#overlay button{
+.close-overlay{
+  aspect-ratio: 1 / 1;
+  width: 25vw;
+  max-width: 80px;
+  min-width: 50px;
+  color: black;
+  border: none;
+  background-color: var(--lightblue);
+  font-size: 50px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-right: 35px;
+}
+
+#overlay .careerButton{
   background-color: var(--main-blue);
   margin: 1vh 2vw;
-  width: 60%;
+  width: 65%;
   color: white;
   border-radius: 15px;
   cursor: pointer;
@@ -408,7 +466,13 @@ display: none;
   font-size: larger;
 }
 
-#overlay button:hover {
+#overlay input {
+  width: 60%;
+  margin-bottom: 5%;
+  padding: 2vh 2vw;
+}
+
+#overlay .careerButton:hover {
   background-color: var(--darkblue);
 }
 
@@ -417,16 +481,37 @@ display: none;
   overflow: hidden;
 }
 
-#overlay-content {
+#overlay-content,
+#overlay-content-tax {
   width: 80%;
   background-color: var(--lightblue);
-  height: 90%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  max-width: 800px;
+  max-width: 700px;
   border-radius: 10px;
+}
+
+#overlay-content-tax > div{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 15% 15% 15% 15% 15% 15%;
+  height: 90%;
+  font-weight: 600;
+}
+
+.minus {
+  color: red;
+}
+
+.add {
+  color: var(--complete-green);
+}
+
+.taxInfo{
+  text-align: right;
 }
 
 /*Hiding buttons for search filter*/
@@ -434,7 +519,7 @@ display: none;
   display: none;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1024px) {
   #main-content {
   grid-template-columns: 100%;
   grid-template-rows: max-content max-content;
@@ -450,4 +535,28 @@ display: none;
 
 }
   
+}
+
+@media screen and (max-width: 768px) {
+.forms > .form-wrapper {
+    grid-template-columns: 100%;
+    grid-template-rows: max-content max-content;
+    gap: 0;
+}
+
+.forms > div > div {
+  grid-template-rows: auto auto auto auto; 
+  gap: 1.5rem 5%;
+}
+
+.back, 
+.next {
+  width: auto;
+  height: auto;
+  max-height: 75px;
+  max-width: 150px;
+  padding: 5px 20px;
+  margin: 2rem 0;
+}
+
 }

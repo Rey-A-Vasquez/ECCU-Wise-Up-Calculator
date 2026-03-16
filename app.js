@@ -10,7 +10,7 @@ function init() {
     const steps = document.querySelectorAll("#steps a"); // Select all step circles
     const content = document.querySelectorAll(".step-content"); // Select all content sections
     const careerOverlay = document.getElementById('select-career');
-    const closeOverlay = document.getElementById('closeOverlay');
+    const closeOverlay = document.getElementById('career-close');
     const searchFilter = document.getElementById("searchFilter");
 
 
@@ -69,13 +69,13 @@ function init() {
     });
 
 
-    //creating buttons for career select overlay
+    //creating buttons for career select overlay & adding necessary information
     function createButtons(careers) {
         careers.forEach((career, index) => {
             const button = document.createElement("button");
             const actualOverlay = document.getElementById("overlay-content"); //accessing
 
-            button.innerHTML = `${career.Occupation}: ${career.Salary}`; //adding HTML of button
+            button.innerHTML = `${career.Occupation}: ${career.Salary.toLocaleString("en-US", { style: "currency", currency: "USD" })}`; //adding HTML of button
 
             button.setAttribute("id", `${index}`); //adding id, data, and class attributes
             button.setAttribute("data-career", `${career.Occupation.replaceAll(' ', '')}`);
@@ -87,8 +87,9 @@ function init() {
                 savedChoice["income"] = career.Salary;
                 localStorage.setItem("savedChoice", JSON.stringify(savedChoice)); //saving choice
 
-                careerTitle.innerHTML = `Future Career: ${career.Occupation}`;
-                updateIncome(career.Salary);
+                careerTitle.innerHTML = `${career.Occupation}`;
+                updateIncome(career.Salary); //changing HTML
+                calcSaveChart(); //run totals and math
 
                 //removing classes from HTML elements to close overlay
                 overlay.classList.remove('active');
@@ -101,10 +102,27 @@ function init() {
     }
 
     function updateIncome(income){
-        document.getElementById("income-amount").innerHTML = `${income.toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        document.getElementById("income-amount").innerHTML = `${Math.round(tax(income) / 12).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
         document.getElementById("salary").innerHTML = `${income.toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
         document.getElementById("net-annual-salary").innerHTML = `${tax(income).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
         document.getElementById("net-monthly-salary").innerHTML = `${Math.round(tax(income) / 12).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+
+        //tax information overlay
+        document.getElementById("pre-tax").innerHTML = `${income.toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        document.getElementById("state-tax").innerHTML = `-${(income * .04).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        document.getElementById("social-tax").innerHTML = `-${(income * .062).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        document.getElementById("med-tax").innerHTML = `-${(income * .0145).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        document.getElementById("tax-remainder").innerHTML = `${Math.round(tax(income)).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+
+        if (income < 16100) {
+            document.getElementById("prog-tax").innerHTML = `-${(0).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        } else if (income<= 28500) {
+            document.getElementById("prog-tax").innerHTML = `-${((income - 16100) * 0.1).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        } else if (income <= 66500) {
+            document.getElementById("prog-tax").innerHTML = `-${((12400 * 0.1) + (income - 28500) * 0.12).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        } else {
+            document.getElementById("prog-tax").innerHTML = `-${((12400 * 0.1) + (38000 * 0.12) + (income - 66500) * 0.22).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        }
     }
 
     async function getCareers() {
@@ -173,6 +191,18 @@ function init() {
         document.body.classList.remove('overlayOpen');
     }) 
 
+    document.getElementById("tax-info").addEventListener("click", () => {
+        document.body.classList.add('overlayOpen');
+        document.getElementById("tax-overlay").classList.remove('notActiveTax');
+        document.getElementById("tax-overlay").classList.add('activeTax');
+    })
+
+    document.getElementById("tax-close").addEventListener("click", () => {
+        document.body.classList.remove('overlayOpen');
+        document.getElementById("tax-overlay").classList.remove('activeTax');
+        document.getElementById("tax-overlay").classList.add('notActiveTax');
+    })
+
 
 
     //tax function
@@ -186,7 +216,6 @@ function init() {
         netIncome -= grossIncome * 0.062;
         netIncome -= grossIncome * 0.0125;
         return Math.round(netIncome);
-
     }
 
 
@@ -219,6 +248,17 @@ function init() {
                 future += Number(input.value.replace(/[^0-9]/g, '')) || 0;
             }
         });
+
+        document.getElementById("expense-amount").innerHTML = `-${total.toLocaleString("en-US", { style: "currency", currency: "USD" })}`; //updating expense HTML
+
+        if (Math.round(tax(careerIncome) / 12 - total < 0)){
+            document.getElementById("remainder-amount").style.color = 'red';
+            document.getElementById("remainder-amount").innerHTML = `${Math.round(tax(careerIncome) / 12 - total).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        } else {
+            document.getElementById("remainder-amount").style.color = 'var(--complete-green)';
+            document.getElementById("remainder-amount").innerHTML = `+${Math.round(tax(careerIncome) / 12 - total).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+
+        }
 
         localStorage.setItem("savedExpenses", JSON.stringify(savedExpenses)); //saving
 
@@ -255,6 +295,18 @@ function init() {
         document.querySelector("#essential-percent").innerHTML = `${Math.round((10000 * essentials / total)) / 100}%`;
         document.querySelector("#life-percent").innerHTML = `${Math.round((10000 * life / total)) / 100}%`;
         document.querySelector("#future-percent").innerHTML = `${Math.round((10000 * future / total)) / 100}%`;
+
+        //updating results screen based off remainder and savings
+        if (Math.round((10000 * future / total)) / 100 > 10 && total < careerIncome){
+            document.getElementById("outcome-header").innerHTML = "Congratulations!";
+            document.getElementById("outcome").innerHTML = `It seems like you're within budget! You won't go into debt! If you have any money left over, you should dedicate it to your savings. A rule to go by is to save at least 10% of your monthly income, and it seems like you're saving ${Math.round((10000 * future / total)) / 100}%! Phenomenal! You will be financially stable in the future! Stand proud, you're not broke.`;
+        } else if (Math.round((10000 * future / total)) / 100 < 10 && total < careerIncome){
+            document.getElementById("outcome-header").innerHTML = "Hmmm...Almost There!";
+            document.getElementById("outcome").innerHTML = `It seems like you're within budget! Essentially, you won't go into debt! If you have any money left over, you should dedicate it to your savings. A rule to go by is to save at least 10% of your monthly income. It seems like you're saving ${Math.round((10000 * future / total)) / 100}% of your income; you're almost there! Feel free to go back and edit your budget!`;
+        } else {
+            document.getElementById("outcome-header").innerHTML = "Uh Oh!";
+            document.getElementById("outcome").innerHTML = `It seems like you're over budget! Falling into debt is very dangerous, and it is best to avoid it as much as possible. In order to cut down your costs, reevaluate some of your expenses. Try and remove as many expenses that aren't strictly necessary such as dining out or streaming services. Feel free to go back and change your budget.`;
+        }
     }
 
     function save() {
@@ -269,12 +321,12 @@ function init() {
 
         const pullCareer = JSON.parse(localStorage.getItem("savedChoice"));
             if (pullCareer && pullCareer["choice"]) {
-                careerTitle.innerHTML = `Future Career: ${pullCareer["choice"]}`;
+                careerTitle.innerHTML = `${pullCareer["choice"]}`;
                 updateIncome(pullCareer["income"]);
             } else {
-                careerTitle.innerHTML = 'Future Career: ';
+                careerTitle.innerHTML = '';
             }
-            
+
         calcSaveChart(); //update page
     }
 

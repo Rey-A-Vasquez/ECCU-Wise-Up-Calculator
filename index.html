@@ -82,17 +82,27 @@
                       <a href="" class="circle">5</a>
                       <a href="" class="circle">6</a>
                   </div>
-                  <section id="section-1" class="step-content active">
+                  <section id="section-1" class="step-content active initial">
                     <h2>Income</h2>
-                    <div>
+                    <div id="start-point">
                       <button id="select-career"><img src="images/menu.png" alt="menu button">Select career</button>
-                      <h3 id="occupation">Future Career: </h3>
-                      <h3>Gross Annual Salary</h3>
-                      <p id="salary"></p>
-                      <h3>Net Annual Salary</h3>
-                      <p id="net-annual-salary"></p>
-                      <h3>Net Monthly Salary</h3>
-                      <p id="net-monthly-salary"></p>
+                      <div>
+                        <h3>Future Career: </h3>
+                        <p id="occupation"></p>
+                      </div>
+                      <div>
+                        <h3>Gross Annual Salary</h3>
+                        <p id="salary"></p>
+                      </div>
+                      <div>
+                        <h3>Net Annual Salary</h3>
+                        <p id="net-annual-salary"></p>
+                      </div>
+                      <div>
+                        <h3>Net Monthly Salary</h3>
+                        <p id="net-monthly-salary"></p>
+                      </div>
+                      <button id="tax-info">View Tax Information</button>
                     </div>
                     <button class="next">Next <img src="images/arrowForward.png" alt="next arrow"></button>
                   </section>
@@ -100,7 +110,7 @@
                   <section class="step-content forms">
                     <h2>Housing and Bills</h2>
                     
-                    <div>
+                    <div class="form-wrapper">
                       <div>
                         <label for="rent">Rent/Mortgage</label>
                         <input type="text" id="rent" name="rent" class="housing expense">
@@ -128,15 +138,16 @@
                         <input type="text" id="internet" name="internet" class="housing expense">
                       </div>
                     </div>
-
-                    <button class="back"><img src="images/arrow.png"> Back</button>
-                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                    <div class="button-wrapper">
+                      <button class="back"><img src="images/arrow.png"> Back</button>
+                      <button class="next">Next <img src="images/arrowForward.png"></button>
+                    </div>
                   </section>
 
                   <section class="step-content forms">
-                    <h2>loans and Transportation</h2>
+                    <h2>Loans and Transportation</h2>
 
-                    <div>
+                    <div class="form-wrapper">
                       <div>
                         <label for="student-loans">Student loans</label>
                         <input type="text" id="student-loans" name="student-loans expense" class="loans expense">
@@ -161,15 +172,16 @@
                         <input type="text" id="car-insurance" name="car-insurance" class="loans expense">
                       </div>
                     </div>
-
-                    <button class="back"><img src="images/arrow.png"> Back</button>
-                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                    <div class="button-wrapper">
+                      <button class="back"><img src="images/arrow.png"> Back</button>
+                      <button class="next">Next <img src="images/arrowForward.png"></button>
+                    </div>
                   </section>
 
                   <section class="step-content forms">
                     <h2>Essentials</h2>
 
-                    <div>
+                    <div class="form-wrapper">
                       <div>
                       <label for="groceries">Groceries</label>
                       <input type="text" id="groceries" name="groceries" class="essentials expense">
@@ -186,14 +198,16 @@
                       </div>
                     </div>
 
-                    <button class="back"><img src="images/arrow.png"> Back</button>
-                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                    <div class="button-wrapper">
+                      <button class="back"><img src="images/arrow.png"> Back</button>
+                      <button class="next">Next <img src="images/arrowForward.png"></button>
+                    </div>
                   </section>
 
                   <section class="step-content forms">
                     <h2>Lifestyle</h2>
 
-                    <div>
+                    <div class="form-wrapper">
                       <div>
                         <label for="gym">Gym</label>
                         <input type="text" id="gym" name="gym" class="lifestyle expense">
@@ -216,15 +230,16 @@
                         <input type="text" id="gifts" name="gifts" class="lifestyle expense">
                       </div>
                     </div>
-
-                    <button class="back"><img src="images/arrow.png"> Back</button>
-                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                    <div class="button-wrapper">
+                      <button class="back"><img src="images/arrow.png"> Back</button>
+                      <button class="next">Next <img src="images/arrowForward.png"></button>
+                    </div>
                   </section>
 
                   <section class="step-content forms">
                     <h2>Future Planning</h2>
 
-                    <div>
+                    <div class="form-wrapper">
                       <div>
                         <label for="retirement">Retirement</label>
                         <input type="text" id="retirement" name="retirement" class="future expense">
@@ -238,14 +253,15 @@
                         <input type="text" id="vacation" name="vacation" class="future expense">
                       </div>
                   </div>
-
-                    <button class="back"><img src="images/arrow.png"> Back</button>
-                    <button class="next">Next <img src="images/arrowForward.png"></button>
+                    <div class="button-wrapper">
+                      <button class="back"><img src="images/arrow.png"> Back</button>
+                      <button class="next">Next <img src="images/arrowForward.png"></button>
+                    </div>
                   </section>
 
-                  <section class="step-content">
-                    <h2>Congratulations!</h2>
-                    <p></p>
+                  <section class="step-content final">
+                    <h2 id="outcome-header">Congratulations!</h2>
+                    <p id="outcome"></p>
                     <button class="back"><img src="images/arrow.png"> Back</button>
                   </section>
               </div>
@@ -253,9 +269,29 @@
 
         <section id="overlay" class="notActive">
           <div id="overlay-content">
-            <button id="closeOverlay"><img src="#">X</button>
+            <button class="close-overlay" id="career-close">X</button>
             <h3>Choose Career</h3>
             <input type="text" id="searchFilter" placeholder="Search Career...">
+          </div>
+        </section>
+        <section id="tax-overlay" class="notActiveTax">
+          <div id="overlay-content-tax">
+            <button class="close-overlay" id="tax-close">X</button>
+            <h3>Tax Information</h3>
+            <div>
+              <p>Gross Income:</p>
+              <p id="pre-tax" class="taxInfo add"></p>
+              <p>State Tax (4%):</p>
+              <p id="state-tax" class="taxInfo minus"></p>
+              <p>Social Security (6%):</p>
+              <p id="social-tax" class="taxInfo minus"></p>
+              <p>Medicare(1.45%):</p>
+              <p id="med-tax" class="taxInfo minus"></p>
+              <p>Progressive Tax (varies):</p>
+              <p id="prog-tax" class="taxInfo minus"></p>
+              <p>Remainder:</p>
+              <p id="tax-remainder" class="taxInfo add"></p>
+            </div>
           </div>
         </section>
     </main>
