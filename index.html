@@ -56,7 +56,22 @@
       </section>
         <div id="main-content">
           <div class="chart-container">
-            <canvas id="myChart"></canvas>
+            <div id="chart">
+              <canvas id="myChart"></canvas>
+            </div>
+            
+            <div id="expense-percentages">
+              <p><span class="circle-color"></span>Housing: <span id="house-percent"></span></p>
+              <p><span class="circle-color"></span>Loans: <span id="loan-percent"></span></p>
+              <p><span class="circle-color"></span>Essentials: <span id="essential-percent"></span></p>
+              <p><span class="circle-color"></span>Lifestyle: <span id="life-percent"></span></p>
+              <p><span class="circle-color"></span>Savings: <span id="future-percent"></span></p>
+            </div>
+            <div id="expense-totals">
+              <p>Income: <span id="income-amount"></span></p>
+              <p>Expenses: <span id="expense-amount"></span></p>
+              <p>Remainder: <span id="remainder-amount"></span></p>
+            </div>
           </div>
           <div class="calculator-container">
                   <div id="steps">
@@ -69,14 +84,16 @@
                   </div>
                   <section id="section-1" class="step-content active">
                     <h2>Income</h2>
-                    <button id="select-career"><img src="images/menu.png" alt="menu button">Select career</button>
-                    <h3 id="occupation">Future Career:</h3>
-                    <h3>Gross Annual Salary</h3>
-                    <p id="salary"></p>
-                    <h3>Net Annual Salary Salary</h3>
-                    <p id="gross-monthly-salary"></p>
-                    <h3>Net Monthly Salary</h3>
-                    <p id="net-monthly-salary"></p>
+                    <div>
+                      <button id="select-career"><img src="images/menu.png" alt="menu button">Select career</button>
+                      <h3 id="occupation">Future Career: </h3>
+                      <h3>Gross Annual Salary</h3>
+                      <p id="salary"></p>
+                      <h3>Net Annual Salary</h3>
+                      <p id="gross-monthly-salary"></p>
+                      <h3>Net Monthly Salary</h3>
+                      <p id="net-monthly-salary"></p>
+                    </div>
                     <button class="next">Next <img src="images/arrowForward.png" alt="next arrow"></button>
                   </section>
 

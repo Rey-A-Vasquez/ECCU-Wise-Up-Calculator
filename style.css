@@ -85,7 +85,8 @@ header > .main-bar {
     width: 90%;
     margin: auto;
     position: relative;
-    margin-top: 2rem;
+    margin-top: 2%;
+    margin-bottom: 0%;
   }
   
 /* Line */
@@ -153,7 +154,6 @@ header > .main-bar {
 
 .step-content.active {
   display: block;
-  margin-top: 2rem;
   text-align: center;
   font-size: 1.2rem;
 }
@@ -177,11 +177,65 @@ main > section:first-child {
   background-color: var(--lightblue);
   border-radius: 10px;
   border: 3px solid var(--darkblue);
-  grid-template-rows: 80vh;
+  grid-template-rows: max-content;
   max-width: 1500px;
   margin-top: 20px;
 }
 
+.calculator-container,
+.chart-container{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
+}
+
+/*Chart Column*/
+.chart-container{
+  align-items: center;
+}
+
+#expense-percentages,
+#expense-totals{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
+  font-size: 18px;
+}
+
+#expense-percentages{
+  height: 30%;
+}
+
+#expense-totals{
+  height: 18%;
+}
+
+#expense-percentages > p,
+#expense-totals > p{
+  margin: 0;
+}
+
+/*Chart*/
+#chart{
+  position: relative;
+  height: 30%;
+  aspect-ratio: 1 / 1;
+}
+
+.circle-color {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/*Caluclator forms*/
+#section-1 > div{
+  height: 45vh;
+}
 .active.forms {
   display: flex;
   flex-wrap: wrap;
@@ -209,11 +263,13 @@ main > section:first-child {
   display: flex;
   text-align: left;
   height: max-content;
+  font-size: 1rem;
 }
 
 .expense {
   width: 97%;
 }
+
 /*Buttons*/
 #select-career,
 .back,
@@ -238,7 +294,7 @@ main > section:first-child {
 .next {
   width: 6vw;
   height: 2.25vw;
-
+  margin-bottom: 5vh;
   font-size:medium;
 }
 
@@ -259,10 +315,36 @@ main > section:first-child {
   background-color: #0b3d2e;
 }
 
-
 /*Footer*/
 footer {
   margin-top: 5%;;
+}
+
+#footerLink > ul,
+#footerBottom > ul:first-child,
+#footerBottom > small {
+  width: 20vw;
+}
+
+#footerLink {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--main-blue);
+  height: 25vh;
+  align-items: center;
+}
+
+#footerLink a {
+  color: white;
+  text-decoration: none;
+}
+
+#footerLink img {
+  height: 60%;
+}
+
+#footerLink ul li {
+  margin-bottom: 1rem;
 }
 
 ul {
@@ -295,43 +377,6 @@ ul {
   font-size: 12px;
 }
 
-#footerLink {
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--main-blue);
-  height: 25vh;
-  align-items: center;
-}
-
-#footerLink a {
-  color: white;
-  text-decoration: none;
-}
-
-#footerLink img {
-  height: 60%;
-}
-
-#footerLink ul li {
-  margin-bottom: 1rem;
-}
-
-#overlay button{
-  background-color: var(--main-blue);
-  margin: 1vh 2vw;
-  width: 60%;
-  color: white;
-  border-radius: 15px;
-  cursor: pointer;
-  padding: 1.5vh 0;
-  font-weight: 600;
-  font-size: larger;
-}
-
-#overlay button:hover {
-  background-color: var(--darkblue);
-}
-
 /* Overlay Styling */
 .notActive{ 
 display: none;
@@ -351,7 +396,21 @@ display: none;
   z-index: 100;
 }
 
+#overlay button{
+  background-color: var(--main-blue);
+  margin: 1vh 2vw;
+  width: 60%;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  padding: 1.5vh 0;
+  font-weight: 600;
+  font-size: larger;
+}
 
+#overlay button:hover {
+  background-color: var(--darkblue);
+}
 
 /*Not allowing scroll for body*/
 .overlayOpen {
@@ -373,4 +432,22 @@ display: none;
 /*Hiding buttons for search filter*/
 .hidden {
   display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  #main-content {
+  grid-template-columns: 100%;
+  grid-template-rows: max-content max-content;
+  gap: 20vh;
+}
+
+.chart-container {
+  grid-row: 2 / 3;
+}
+
+.calculator-container {
+  grid-row: 1 / 2;
+
+}
+  
 }

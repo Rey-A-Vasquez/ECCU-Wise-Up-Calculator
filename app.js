@@ -82,6 +82,11 @@ function init() {
             button.classList.add("careerButton")
 
             button.addEventListener("click", () => { //adding event listener to change HTML
+                let savedChoice = {};
+                savedChoice["choice"] = career.Occupation;
+                savedChoice["income"] = career.Salary;
+                localStorage.setItem("savedChoice", JSON.stringify(savedChoice)); //saving choice
+
                 careerTitle.innerHTML = `Future Career: ${career.Occupation}`;
                 console.log(`Selected Career: ${career.Occupation}, Salary: ${career.Salary}`);
 
@@ -114,16 +119,32 @@ function init() {
         {
             type: "doughnut",
             data: {
-                labels: ["Housing (%)", "Loans (%)", "Essentials", "Lifestyle", "Future Planning"],
-                datasets: [{ label: "$", data: [0, 1] }]
+                labels: ["Housing", "Loans", "Essentials", "Lifestyle", "Future Planning"],
+                datasets: [{ label: "$", data: [0, 0, 0, 0, 0],
+                    backgroundColor: [
+                        '#FF6384', 
+                        '#36A2EB', 
+                        '#FFCE56', 
+                        '#4BC0C0', 
+                        '#9966FF'  
+                        ]
+                 }]
             },
             options: {
                 plugins: {
-                    title: { display: true, text: `Expenses by Catagory` }
+                    title: { display: false },
+                    legend: {display: false}
                 }
             }
         }
     )
+
+    const chartColors = currentChart.data.datasets[0].backgroundColor; //accessing backgroud color from chart
+    const colorCircles = document.querySelectorAll("#expense-percentages .circle-color"); //grabbing all spans b4 <p>'s
+
+    colorCircles.forEach((circle, index) => { //every span gets dedicated color
+        circle.style.backgroundColor = chartColors[index]; 
+    });
 
 
     getCareers(); //fetch career array
@@ -165,17 +186,16 @@ function init() {
     //calculating totals, saving to local storage, updating chart
     function calcSaveChart() {
         const savedExpenses = {};
-        let housing = 0;
-        let life = 0;
-        let essentials = 0;
-        let loans = 0;
-        let future = 0;
+        let housing = 0, life = 0, essentials = 0, loans = 0, future = 0, total = 0;
 
-        let total = 0;
+        const pullCareer = JSON.parse(localStorage.getItem("savedChoice")) || 0; //pulling career income
+        const careerIncome = pullCareer["income"];
+        
         inputs.forEach(input => {
             total += Number(input.value.replace(/[^0-9]/g, '')) || 0; //adding total
 
             savedExpenses[input.id] = Number(input.value.replace(/[^0-9]/g, '')) || 0; //adding expense to array to save
+
             if (input.classList.contains("housing")) { //checks which category input belongs to & adds only the integers
                 housing += Number(input.value.replace(/[^0-9]/g, '')) || 0;
             }
@@ -200,16 +220,34 @@ function init() {
             {
                 type: "doughnut",
                 data: {
-                    labels: ["Housing (%)", "Loans (%)", "Essentials", "Lifestyle", "Future Planning"],
-                    datasets: [{ label: "$", data: [housing, loans, essentials, life, future] }]
+                    labels: ["Housing", "Loans", "Essentials", "Lifestyle", "Future Planning"],
+                    datasets: [{ label: "$ (USD)", data: [housing, loans, essentials, life, future],
+                    backgroundColor: [
+                        '#FF6384', 
+                        '#36A2EB', 
+                        '#FFCE56', 
+                        '#4BC0C0', 
+                        '#9966FF'  
+                        ]
+                     }],
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
-                        title: { display: true, text: `Expenses by Catagory` }
+                        title: { display: false },
+                        legend: {display: false }
                     }
                 }
             }
         )
+
+        //updating HTML percentages
+        document.querySelector("#house-percent").innerHTML = `${Math.round((10000 * housing / total)) / 100}%`;
+        document.querySelector("#loan-percent").innerHTML = `${Math.round((10000 * loans / total)) / 100}%`;
+        document.querySelector("#essential-percent").innerHTML = `${Math.round((10000 * essentials / total)) / 100}%`;
+        document.querySelector("#life-percent").innerHTML = `${Math.round((10000 * life / total)) / 100}%`;
+        document.querySelector("#future-percent").innerHTML = `${Math.round((10000 * future / total)) / 100}%`;
     }
 
     function save() {
@@ -221,6 +259,13 @@ function init() {
                 }
             }
         })
+
+        const pullCareer = JSON.parse(localStorage.getItem("savedChoice"));
+            if (pullCareer && pullCareer["choice"]) {
+                careerTitle.innerHTML = `Future Career: ${pullCareer["choice"]}`;
+            } else {
+                careerTitle.innerHTML = 'Future Career: ';
+            }
         calcSaveChart(); //update page
     }
 
