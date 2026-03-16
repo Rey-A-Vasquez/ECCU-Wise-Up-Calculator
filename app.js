@@ -79,7 +79,7 @@ function init() {
 
             button.setAttribute("id", `${index}`); //adding id, data, and class attributes
             button.setAttribute("data-career", `${career.Occupation.replaceAll(' ', '')}`);
-            button.classList.add("careerButton")
+            button.classList.add("careerButton");
 
             button.addEventListener("click", () => { //adding event listener to change HTML
                 let savedChoice = {};
@@ -88,7 +88,7 @@ function init() {
                 localStorage.setItem("savedChoice", JSON.stringify(savedChoice)); //saving choice
 
                 careerTitle.innerHTML = `Future Career: ${career.Occupation}`;
-                console.log(`Selected Career: ${career.Occupation}, Salary: ${career.Salary}`);
+                updateIncome(career.Salary);
 
                 //removing classes from HTML elements to close overlay
                 overlay.classList.remove('active');
@@ -98,6 +98,13 @@ function init() {
 
             actualOverlay.appendChild(button);//add button to overlay
         });
+    }
+
+    function updateIncome(income){
+        document.getElementById("income-amount").innerHTML = `${income.toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        document.getElementById("salary").innerHTML = `${income.toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        document.getElementById("net-annual-salary").innerHTML = `${tax(income).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
+        document.getElementById("net-monthly-salary").innerHTML = `${Math.round(tax(income) / 12).toLocaleString("en-US", { style: "currency", currency: "USD" })}`;
     }
 
     async function getCareers() {
@@ -178,7 +185,7 @@ function init() {
         netIncome -= grossIncome * 0.04;
         netIncome -= grossIncome * 0.062;
         netIncome -= grossIncome * 0.0125;
-        return Math.roud(netIncome);
+        return Math.round(netIncome);
 
     }
 
@@ -263,9 +270,11 @@ function init() {
         const pullCareer = JSON.parse(localStorage.getItem("savedChoice"));
             if (pullCareer && pullCareer["choice"]) {
                 careerTitle.innerHTML = `Future Career: ${pullCareer["choice"]}`;
+                updateIncome(pullCareer["income"]);
             } else {
                 careerTitle.innerHTML = 'Future Career: ';
             }
+            
         calcSaveChart(); //update page
     }
 
