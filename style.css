@@ -562,7 +562,7 @@ display: none;
 
 #chart{
   height: 40vh;
-  padding: 0 calc(50% - 20vh);
+  width: 100%
 }
   
 #expense-totals{
@@ -584,7 +584,7 @@ display: none;
     grid-template-columns: 100%;
     grid-template-rows: max-content max-content;
     gap: 1.2rem 0;
-    height: 45vh;
+    height: 60vh;
 }
 
 .forms > div > div {
@@ -611,7 +611,6 @@ display: none;
 
 #chart{
   height: 20vh;
-  padding: 0 calc(50% - 20vh);
 }
 
 header .top-bar,
@@ -639,6 +638,7 @@ header .top-bar,
 #section-1 > div {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: max-content max-content max-content;
+  height: 60vh;
 }
 
 #select-career, #tax-info{
@@ -653,5 +653,9 @@ header .top-bar,
 .circle{
   width: 50px;
   height: 50px;
+}
+
+#outcome{
+  height: 60vh;
 }
 }
